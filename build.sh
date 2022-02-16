@@ -7,6 +7,6 @@ set -e
 npx tsc
 
 # Re-generate the documentation
-npx typedoc "src/index.ts"
+npx typedoc "src/exports.ts"
 
 echo "Success!"
