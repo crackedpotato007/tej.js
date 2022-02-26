@@ -1,4 +1,4 @@
 import Client from "./Structures/Client";
-import * as types from "../typings";
-
-export { Client, types };
+import { IClient, IClientOptions, Guild } from "../typings";
+import BaseChannel from "./Structures/BaseChannel";
+export { Client, IClient, IClientOptions, Guild, BaseChannel };
