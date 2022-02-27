@@ -1,8 +1,10 @@
 import { fetch } from "undici";
 import Client from "../Structures/Client";
 import { APIGuild, APIGuildChannel, APIChannel } from "discord-api-types";
-import { Channel, Guild } from "../../typings";
+import { Guild } from "../../typings";
 import TextChannel from "../Structures/TextChannel";
+import { BaseChannel } from "../exports";
+import { GuildChannel } from "../../typings";
 const cacheChannels = async (guildids: string[], Client: Client) => {
   return new Promise(async (resolve, reject) => {
     await Promise.all(
@@ -20,14 +22,15 @@ const cacheChannels = async (guildids: string[], Client: Client) => {
         if (data.status !== 200) {
           throw new Error(`${data.status} ${data.statusText}`);
         }
-        let channels = (await data.json()) as Channel[];
+        let channels = (await data.json()) as GuildChannel[];
         channels = channels.map((chan) => {
           chan.client = Client;
-          if (["0", "1", "3", "5", "10", "11", "12"].includes(chan.type))
-            chan = new TextChannel(chan);
-          return chan;
+          let chan2 = new BaseChannel(chan.id, chan.type, Client);
+          if ([0, 1, 3, 5, 10, 11, 12].includes(chan.type))
+            chan2 = new TextChannel(chan);
+          return chan2;
         });
-        const chans: Map<string, Channel> = new Map();
+        const chans: Map<string, GuildChannel> = new Map();
         channels.map((chan) => chans.set(chan.id, chan));
         const guildOBJ = Client.guilds.get(guildID);
         if (!guildOBJ) return;

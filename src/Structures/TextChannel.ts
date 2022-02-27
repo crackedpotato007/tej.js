@@ -3,38 +3,10 @@ import { APIChannel } from "discord-api-types";
 import { Channel } from "../../typings";
 import Client from "./Client";
 import { fetch } from "undici";
-class ChannelClass implements Channel {
-  client: Client;
-  id: string;
-  type: string;
-  name: string;
-  guild_id: string;
-  position: number;
-  permission_overwrites: any;
-  nsfw: boolean;
-  topic: string;
-  last_message_id: string;
-  bitrate: number;
-  user_limit: number;
-  rate_limit_per_user: number;
-  recipients: any[];
-  icon: string;
-  owner_id: string;
-  application_id: string;
-  parent_id: string;
-  last_pin_timestamp: string;
-  nicks: any[];
-  verification_level: number;
-  explicit_content_filter: number;
-  read_only: boolean;
-  permissions: number;
-  system_channel_flags: number;
-  created_at: string;
-  updated_at: string;
-  last_message_pin_timestamp: string;
-  message_notifications: number;
-  type_: number;
+import BaseChannel from "./BaseChannel";
+class TextChannel extends BaseChannel implements Channel {
   constructor(data: Channel) {
+    super();
     const keys = Object.keys(data);
     keys.forEach((key) => {
       this[key] = data[key];
@@ -64,4 +36,4 @@ class ChannelClass implements Channel {
   }
 }
 
-export default ChannelClass;
+export default TextChannel;
