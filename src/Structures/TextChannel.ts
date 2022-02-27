@@ -1,7 +1,6 @@
 //@ts-nocheck
-import { APIChannel } from "discord-api-types";
 import { Channel } from "../../typings";
-import Client from "./Client";
+
 import { fetch } from "undici";
 import BaseChannel from "./BaseChannel";
 /**
@@ -23,7 +22,7 @@ class TextChannel extends BaseChannel implements Channel {
   }
   /**
    *
-   * @param message string
+   * @param message The message to send
    * @example
    * ```
    * client.guilds.get("1234567890").channels.get("12345678901234567").send("Hello World!");
