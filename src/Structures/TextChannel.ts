@@ -4,6 +4,15 @@ import { Channel } from "../../typings";
 import Client from "./Client";
 import { fetch } from "undici";
 import BaseChannel from "./BaseChannel";
+/**
+ * The TextChanell is the class which represents a guild text channel
+ * @extends BaseChannel
+ * @example
+ * ```
+ * Client.guilds.get("12345678901234567").channels.get("12345678901234567");
+ * ```
+ *
+ */
 class TextChannel extends BaseChannel implements Channel {
   constructor(data: Channel) {
     super();
@@ -12,6 +21,16 @@ class TextChannel extends BaseChannel implements Channel {
       this[key] = data[key];
     });
   }
+  /**
+   *
+   * @param message string
+   * @example
+   * ```
+   * client.guilds.get("1234567890").channels.get("12345678901234567").send("Hello World!");
+   * ```
+   * @returns Promise<void>
+   *
+   */
   async send(message: string) {
     console.log(this.id);
     const res = await fetch(

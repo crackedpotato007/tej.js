@@ -19,9 +19,9 @@ const cacheChannels = async (guildids: string[], Client: Client) => {
             },
           }
         );
-        if (data.status !== 200) {
+        if (data.status !== 200)
           throw new Error(`${data.status} ${data.statusText}`);
-        }
+
         let channels = (await data.json()) as GuildChannel[];
         channels = channels.map((chan) => {
           chan.client = Client;
