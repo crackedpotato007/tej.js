@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { IClient, IClientOptions } from "../../typings";
+import { IClient } from "../../typings";
 import { WebSocket } from "ws";
 import { fetch } from "undici";
 import { startCaching } from "../REST/cache";
@@ -110,11 +110,3 @@ class Client extends EventEmitter implements IClient {
   }
 }
 export default Client;
-const client = new Client();
-client.start("ODQ3NDM3MzkwNjU0MjEwMTE4.YK-Dkg.DArEL7UWXgLw_g2LNeEtiCTxkhQ");
-const chan = client.guilds
-  .get("779679929242746920")
-  ?.channels.get("780106253493207051");
-if (chan?.isGuildTextChannel()) {
-  chan.send("test");
-}

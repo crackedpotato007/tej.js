@@ -1,7 +1,6 @@
 //@ts-nocheck
-import { APIChannel } from "discord-api-types";
 import { Channel } from "../../typings";
-import Client from "./Client";
+
 import { fetch } from "undici";
 import BaseChannel from "./BaseChannel";
 /**

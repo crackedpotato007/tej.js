@@ -1,6 +1,6 @@
 import { fetch } from "undici";
 import Client from "../Structures/Client";
-import { APIGuild, APIGuildChannel, APIChannel } from "discord-api-types";
+import { APIGuild } from "discord-api-types";
 import { Guild } from "../../typings";
 import TextChannel from "../Structures/TextChannel";
 import { BaseChannel } from "../exports";
