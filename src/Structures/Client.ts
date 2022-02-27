@@ -109,6 +109,7 @@ class Client extends EventEmitter implements IClient {
 		return this
 	}
 }
+<<<<<<< HEAD
 export default Client
 const client = new Client()
 client.start('ODQ3NDM3MzkwNjU0MjEwMTE4.YK-Dkg.DArEL7UWXgLw_g2LNeEtiCTxkhQ')
@@ -116,3 +117,14 @@ client.guilds
 	.get('779679929242746920')
 	?.channels.get('780106253493207051')
 	?.send('Hello, World!')
+=======
+export default Client;
+const client = new Client();
+client.start("ODQ3NDM3MzkwNjU0MjEwMTE4.YK-Dkg.DArEL7UWXgLw_g2LNeEtiCTxkhQ");
+const chan = client.guilds
+  .get("779679929242746920")
+  ?.channels.get("780106253493207051");
+if (chan?.isGuildTextChannel()) {
+  chan.send("test");
+}
+>>>>>>> 89d387ebdf7dd2bcca71c65ac5411ae393f2adb8
