@@ -4,7 +4,7 @@ import { WebSocket } from "ws";
 import { fetch } from "undici";
 import { startCaching } from "../REST/cache";
 import { GatewayReceivePayload, APIUnavailableGuild } from "discord-api-types";
-import { Guild } from "../../typings";
+import { IGuild } from "../../typings";
 interface gateway {
   url: string;
   shards: number;
@@ -38,7 +38,7 @@ interface gateway {
  */
 class Client extends EventEmitter implements IClient {
   token: string = "";
-  guilds: Map<string, Guild> = new Map();
+  guilds: Map<string, IGuild> = new Map();
 
   constructor() {
     super();

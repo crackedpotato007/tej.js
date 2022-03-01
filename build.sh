@@ -3,7 +3,7 @@
 # Exit on any errors
 set -e
 
-npm i typescript@4.5.5
+npm i typescript@latest
 # Compile the project
 tsc --outDir dist/
 
