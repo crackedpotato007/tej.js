@@ -12,6 +12,15 @@ interface Guild extends Omit<APIGuild, "channels"> {
   };
 }
 class Guild {
+  /**
+   * @description Guild class with helper methods and custom channels, Used to create a instance of a class which inherits the raw guild data but also has custom methods and properties.
+   * @param data
+   * @param Client
+   * @returns Guild
+   * @example
+   * const guild = await new Guild(data, client).init();
+   *
+   */
   constructor(data: IGuild, Client: Client) {
     Object.assign(this, data);
     this.client = Client;
@@ -40,6 +49,13 @@ class Guild {
     });
     const chans: Map<string, GuildChannel> = new Map();
     channels.map((chan) => chans.set(chan.id, chan));
+    /**
+     * @description The channels cache of the guild. Contains custom classes which inherit the raw channel data but also have custom methods and properties.
+     * @type Map<string, GuildChannel>
+     * @example
+     * const guild = await new Guild(data, client).init();
+     * guild.channels.cache.get("1245")
+     */
     this.channels.cache = chans;
     return this;
   }
