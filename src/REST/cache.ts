@@ -1,44 +1,31 @@
 import { fetch } from "undici";
 import Client from "../Structures/Client";
 import { APIGuild } from "discord-api-types";
-import { Guild } from "../../typings";
-import TextChannel from "../Structures/TextChannel";
-import { BaseChannel } from "../exports";
-import { GuildChannel } from "../../typings";
+import { IGuild } from "../../typings";
+import Guild from "../Structures/Guild";
 const cacheChannels = async (guildids: string[], Client: Client) => {
   return new Promise(async (resolve, reject) => {
-    await Promise.all(
-      guildids.map(async (guildID) => {
-        const data = await fetch(
-          `https://discord.com/api/v10/guilds/${guildID}/channels`,
-          {
-            headers: {
-              Authorization: `Bot ${Client.token}`,
-              "User-Agent": "undici/tej.js",
-              encoding: "json",
-            },
-          }
-        );
-        if (data.status !== 200)
-          throw new Error(`${data.status} ${data.statusText}`);
-
-        let channels = (await data.json()) as GuildChannel[];
-        channels = channels.map((chan) => {
-          chan.client = Client;
-          let chan2 = new BaseChannel(chan.id, chan.type, Client);
-          if ([0, 1, 3, 5, 10, 11, 12].includes(chan.type))
-            chan2 = new TextChannel(chan);
-          return chan2;
-        });
-        const chans: Map<string, GuildChannel> = new Map();
-        channels.map((chan) => chans.set(chan.id, chan));
-        const guildOBJ = Client.guilds.get(guildID);
-        if (!guildOBJ) return;
-        guildOBJ.channels = chans;
-        Client.guilds.set(guildID, guildOBJ);
-      })
-    );
-    resolve(Client);
+    guildids.map(async (guildID) => {
+      const data = await fetch(
+        `https://discord.com/api/v10/guilds/${guildID}/channels`,
+        {
+          headers: {
+            Authorization: `Bot ${Client.token}`,
+            "User-Agent": "undici/tej.js",
+            encoding: "json",
+          },
+        }
+      );
+      if (data.status !== 200)
+        throw new Error(`${data.status} ${data.statusText}`);
+      const guildarr = Array.from(Client.guilds.values());
+      await Promise.all(
+        guildarr.map(async (guild) => {
+          Client.guilds.set(guild.id, await new Guild(guild, Client).init());
+        })
+      );
+      resolve(Client);
+    });
   });
 };
 
@@ -65,7 +52,7 @@ const cacheGuilds = async (Client: Client, token: string) => {
     if (guild.status !== 200) {
       throw new Error(`${guild.status} ${guild.statusText}`);
     }
-    const guild2 = (await guild.json()) as Guild;
+    const guild2 = (await guild.json()) as IGuild;
     Client.guilds.set(guild2.id, guild2);
   }
   return Client;
