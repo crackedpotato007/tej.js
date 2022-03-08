@@ -1,8 +1,8 @@
 //@ts-nocheck
-import { Channel } from "../../typings";
-
+import { APIGuildTextChannel } from "discord-api-types";
 import { fetch } from "undici";
 import BaseChannel from "./BaseChannel";
+import Client from "./Client";
 /**
  * The TextChanell is the class which represents a guild text channel
  * @extends BaseChannel
@@ -12,12 +12,13 @@ import BaseChannel from "./BaseChannel";
  * ```
  *
  */
-class TextChannel extends BaseChannel implements Channel {
-  constructor(data: Channel) {
-    super();
+interface TextChannel extends APIGuildTextChannel<0> {}
+class TextChannel extends BaseChannel {
+  constructor(data: APIGuildTextChannel<0>, client: Client) {
+    super(data.id, data.type, client);
     const keys = Object.keys(data);
     keys.forEach((key) => {
-      this[key] = data[key];
+      this[key as keyof this] = data[key as keyof this];
     });
   }
   /**

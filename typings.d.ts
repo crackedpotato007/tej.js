@@ -15,6 +15,6 @@ export interface IGuild extends Omit<APIGuild, "channels"> {
   };
 }
 export interface IClient {
-  guilds: Map<string, Guild>;
+  guilds: Map<string, IGuild>;
   token: string;
 }

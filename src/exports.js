@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+exports.Guild = exports.TextChannel = exports.BaseChannel = exports.Client = void 0;
+var Client_1 = require("./Structures/Client");
+exports.Client = Client_1["default"];
+var BaseChannel_1 = require("./Structures/BaseChannel");
+exports.BaseChannel = BaseChannel_1["default"];
+var TextChannel_1 = require("./Structures/TextChannel");
+exports.TextChannel = TextChannel_1["default"];
+var Guild_1 = require("./Structures/Guild");
+exports.Guild = Guild_1["default"];
