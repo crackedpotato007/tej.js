@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { APIGuildTextChannel } from "discord-api-types";
 import { fetch } from "undici";
 import BaseChannel from "./BaseChannel";
