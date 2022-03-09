@@ -1,6 +1,6 @@
 import { GatewayIntentBits, APIGuild, APIChannel } from "discord-api-types";
 import { BaseChannel } from "./src/exports";
-import TextChannel from "./src/Structures/TextChannel";
+import TextChannel from "./src/Structures/GuildTextChannel";
 import { Client } from "../Structures/Client";
 export interface IClientOptions {
   intents: GatewayIntentBits;

@@ -1,5 +1,5 @@
 import Client from "./Client";
-import TextChannel from "./TextChannel";
+import TextChannel from "./GuildTextChannel";
 import { ChannelType } from "discord-api-types";
 class BaseChannel {
   id: string = "";
@@ -7,7 +7,7 @@ class BaseChannel {
   client: Client;
   constructor(id: string, type: number, Client: Client) {
     this.id = id;
-    this.type = type;
+    this.type = type as ChannelType;
     this.client = Client;
   }
   isGuildTextChannel(): this is TextChannel {

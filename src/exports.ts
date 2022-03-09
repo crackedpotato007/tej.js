@@ -1,7 +1,7 @@
 import Client from "./Structures/Client";
 import { IClient, IClientOptions, IGuild } from "../typings";
 import BaseChannel from "./Structures/BaseChannel";
-import TextChannel from "./Structures/TextChannel";
+import TextChannel from "./Structures/GuildTextChannel";
 import Guild from "./Structures/Guild";
 export {
   Client,

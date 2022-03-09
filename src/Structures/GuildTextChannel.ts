@@ -1,4 +1,5 @@
 import { APIGuildTextChannel } from "discord-api-types";
+import { APITextChannel } from "discord-api-types";
 import { fetch } from "undici";
 import BaseChannel from "./BaseChannel";
 import Client from "./Client";
@@ -11,13 +12,16 @@ import Client from "./Client";
  * ```
  *
  */
-interface TextChannel extends APIGuildTextChannel<0> {}
-class TextChannel extends BaseChannel {
+interface TextChannel extends APIGuildTextChannel<0> {
+  type: 0;
+}
+class GuildTextChannel extends BaseChannel {
   constructor(data: APIGuildTextChannel<0>, client: Client) {
     super(data.id, data.type, client);
     const keys = Object.keys(data);
     keys.forEach((key) => {
-      this[key as keyof this] = data[key as keyof this];
+      //@ts-ignore
+      this[key as keyof this] = data[key as keyof APIGuildTextChannel<0>];
     });
   }
   /**
@@ -45,13 +49,15 @@ class TextChannel extends BaseChannel {
         },
         method: "POST",
       }
-    ).catch((err) => console.log(err));
-    const resp = await res.json();
-    if (resp.code) {
-      throw new Error(resp.message);
+    );
+    if (res.status === 200) {
+      const resp = (await res.json()) as any;
+      if (resp.code) {
+        throw new Error(resp.message);
+      }
+      return Promise.resolve();
     }
-    return Promise.resolve();
   }
 }
 
-export default TextChannel;
+export default GuildTextChannel;
