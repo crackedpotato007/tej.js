@@ -1,6 +1,7 @@
 import Client from "./Client";
 import TextChannel from "./GuildTextChannel";
 import { ChannelType } from "discord-api-types";
+import GuildVoiceChannel from "./GuildVoiceChat";
 class BaseChannel {
   id: string = "";
   type: ChannelType;
@@ -12,6 +13,9 @@ class BaseChannel {
   }
   isGuildTextChannel(): this is TextChannel {
     return this.type === 0;
+  }
+  isGuildVoiceChannel(): this is GuildVoiceChannel {
+    return this.type === 2;
   }
 }
 export default BaseChannel;

@@ -1,10 +1,14 @@
 import { IGuild } from "../../typings";
-import { APIGuild, APIGuildTextChannel } from "discord-api-types";
+import {
+  APIGuild,
+  APIGuildTextChannel,
+  APIVoiceChannel,
+} from "discord-api-types";
 import { fetch } from "undici";
 import { GuildChannel } from "../../typings";
 import Client from "../Structures/Client";
 import GuildTextChannel from "./GuildTextChannel";
-import BaseChannel from "../Structures/BaseChannel";
+import GuildVoiceChannel from "./GuildVoiceChat";
 interface Guild extends Omit<APIGuild, "channels"> {
   client: Client;
   channels: {
@@ -49,6 +53,11 @@ class Guild {
         const chandata = chan as APIGuildTextChannel<0>;
         chan2 = new GuildTextChannel(chandata, this.client);
       }
+      if (chan.type === 2) {
+        const chandata = chan as APIVoiceChannel;
+        chan2 = new GuildVoiceChannel(chandata, this.client);
+      }
+
       return chan2;
     });
     const chans: Map<string, GuildChannel> = new Map();
