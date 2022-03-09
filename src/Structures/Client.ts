@@ -3,7 +3,11 @@ import { IClient } from "../../typings";
 import { WebSocket } from "ws";
 import { fetch } from "undici";
 import { startCaching } from "../REST/cache";
-import { GatewayReceivePayload, APIUnavailableGuild } from "discord-api-types";
+import {
+  GatewayReceivePayload,
+  APIUnavailableGuild,
+  APIUser,
+} from "discord-api-types";
 import { IGuild } from "../../typings";
 interface gateway {
   url: string;
@@ -39,12 +43,24 @@ interface gateway {
 class Client extends EventEmitter implements IClient {
   token: string = "";
   guilds: Map<string, IGuild> = new Map();
-
+  ws = {} as WebSocket;
+  user: APIUser = {} as APIUser;
   constructor() {
     super();
   }
   async start(token: string) {
     this.token = token;
+    const myuser = await fetch(`https://discord.com/api/v10/users/@me`, {
+      headers: {
+        Authorization: `Bot ${this.token}`,
+        "User-Agent": "undici/tej.js",
+        encoding: "json",
+      },
+    });
+    if (myuser.status !== 200) {
+      throw new Error(`${myuser.status} ${myuser.statusText}`);
+    }
+    this.user = (await myuser.json()) as APIUser;
     let existingGuilds: APIUnavailableGuild[] = [];
     const res = await fetch("https://discord.com/api/v10/gateway/bot", {
       headers: {
@@ -60,6 +76,7 @@ class Client extends EventEmitter implements IClient {
     const ws = new WebSocket(data.url + "/?v=9&encoding=json");
     let interval = 0;
     let s: null | number = null;
+    this.ws = ws;
     ws.on("open", () => {
       ws.send(
         JSON.stringify({
