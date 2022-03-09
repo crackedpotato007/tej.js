@@ -3,7 +3,7 @@ import { WebSocket } from "ws";
 import BaseChannel from "./BaseChannel";
 import Client from "./Client";
 /**
- * The TextChanell is the class which represents a guild text channel
+ * The GuildVoiceChannel class is a class that contains information and methods for a guild voice channel.
  * @extends BaseChannel
  * @example
  * ```
@@ -25,10 +25,9 @@ class GuildVoiceChannel extends BaseChannel {
   }
   /**
    *
-   * @param message The message to send
    * @example
    * ```
-   * client.guilds.get("1234567890").channels.get("12345678901234567").send("Hello World!");
+   * client.guilds.get("1234567890").channels.get("12345678901234567").connect();
    * ```
    * @returns Promise<void>
    *
