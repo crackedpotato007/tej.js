@@ -4,6 +4,7 @@ import BaseChannel from "./Structures/BaseChannel";
 import TextChannel from "./Structures/GuildTextChannel";
 import Guild from "./Structures/Guild";
 import GuildVoiceChannel from "./Structures/GuildVoiceChat";
+import ApplicationCommandManager from "./Structures/ApplicationCommandManager";
 export {
   Client,
   IClient,
@@ -12,5 +13,6 @@ export {
   BaseChannel,
   TextChannel,
   Guild,
+  ApplicationCommandManager,
   GuildVoiceChannel,
 };

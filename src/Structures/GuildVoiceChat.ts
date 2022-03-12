@@ -12,7 +12,7 @@ import Client from "./Client";
  *
  */
 interface GuildVoiceChannel extends APIVoiceChannel {
-  type: 0;
+  type: 2;
 }
 class GuildVoiceChannel extends BaseChannel {
   constructor(data: APIVoiceChannel, client: Client) {
@@ -53,7 +53,6 @@ class GuildVoiceChannel extends BaseChannel {
       if (res.t === "VOICE_STATE_UPDATE") session_id = res.d.session_id;
       if (res.t === "VOICE_SERVER_UPDATE") {
         endpoint = res.d.endpoint;
-        console.log(res);
         const idpayload = {
           op: 0,
           d: {
@@ -64,12 +63,11 @@ class GuildVoiceChannel extends BaseChannel {
           },
         };
         ws = new WebSocket("wss://" + endpoint + "?v=4");
-        console.log(idpayload);
+
         ws.on("message", (data) => {
           const res = JSON.parse(data.toString());
           if (res.op === 8) heartbeat_interval = res.d.heartbeat_interval;
           if (res.op === 2) {
-            console.log("setting up interval");
             setInterval(() => {
               ws.send(JSON.stringify({ op: 3, d: Date.now() }));
             }, heartbeat_interval);

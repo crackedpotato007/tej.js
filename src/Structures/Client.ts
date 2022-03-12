@@ -8,6 +8,7 @@ import {
   APIUnavailableGuild,
   APIUser,
 } from "discord-api-types";
+import ApplicationCommandManager from "./ApplicationCommandManager";
 import { IGuild } from "../../typings";
 interface gateway {
   url: string;
@@ -45,6 +46,8 @@ class Client extends EventEmitter implements IClient {
   guilds: Map<string, IGuild> = new Map();
   ws = {} as WebSocket;
   user: APIUser = {} as APIUser;
+  ApplicationCommandManager: ApplicationCommandManager =
+    {} as ApplicationCommandManager;
   constructor() {
     super();
   }
@@ -57,6 +60,7 @@ class Client extends EventEmitter implements IClient {
         encoding: "json",
       },
     });
+    this.ApplicationCommandManager = new ApplicationCommandManager(this);
     if (myuser.status !== 200) {
       throw new Error(`${myuser.status} ${myuser.statusText}`);
     }
