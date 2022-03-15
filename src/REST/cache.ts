@@ -3,6 +3,7 @@ import Client from "../Structures/Client";
 import { APIGuild } from "discord-api-types";
 import { IGuild } from "../../typings";
 import Guild from "../Structures/Guild";
+const rawGuilds = new Map();
 const cacheChannels = async (guildids: string[], Client: Client) => {
   return new Promise(async (resolve, reject) => {
     guildids.map(async (guildID) => {
@@ -18,7 +19,7 @@ const cacheChannels = async (guildids: string[], Client: Client) => {
       );
       if (data.status !== 200)
         throw new Error(`${data.status} ${data.statusText}`);
-      const guildarr = Array.from(Client.guilds.values());
+      const guildarr = Array.from(rawGuilds.values());
       await Promise.all(
         guildarr.map(async (guild) => {
           Client.guilds.set(guild.id, await new Guild(guild, Client).init());
@@ -53,18 +54,18 @@ const cacheGuilds = async (Client: Client, token: string) => {
       throw new Error(`${guild.status} ${guild.statusText}`);
     }
     const guild2 = (await guild.json()) as IGuild;
-    Client.guilds.set(guild2.id, guild2);
+    rawGuilds.set(guild2.id, guild2);
   }
   return Client;
 };
 async function startCaching(Client: Client, token: string) {
   setInterval(async () => {
     await cacheGuilds(Client, token),
-      await cacheChannels(Array.from(Client.guilds.keys()), Client);
+      await cacheChannels(Array.from(rawGuilds.keys()), Client);
   }, 60 * 1000 * 10);
   return Promise.all([
     await cacheGuilds(Client, token),
-    await cacheChannels(Array.from(Client.guilds.keys()), Client),
+    await cacheChannels(Array.from(rawGuilds.keys()), Client),
   ]);
 }
 

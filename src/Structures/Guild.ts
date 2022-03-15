@@ -3,6 +3,7 @@ import {
   APIGuild,
   APIGuildTextChannel,
   APIVoiceChannel,
+  RESTPostAPIApplicationCommandsJSONBody,
 } from "discord-api-types";
 import { fetch } from "undici";
 import { GuildChannel } from "../../typings";
@@ -73,6 +74,27 @@ class Guild {
      */
     this.channels.cache = chans;
     return this;
+  }
+  async register(commands: RESTPostAPIApplicationCommandsJSONBody[]) {
+    Promise.all(
+      commands.map(async (command) => {
+        const res = await fetch(
+          `https://discord.com/api/v10/applications/${this.client.user.id}/guilds/${this.id}/commands`,
+          {
+            body: JSON.stringify(command),
+            headers: {
+              "User-Agent": "undici/tej.js",
+              Authorization: `Bot ${this.client.token}`,
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+          }
+        );
+        if (res.status !== 200) {
+          throw new Error(`${res.status}: ${res.statusText}`);
+        }
+      })
+    );
   }
 }
 

@@ -3,9 +3,10 @@ import "dotenv/config";
 const client = new Client();
 client.start(process.env.TOKEN!);
 client.on("READY", () => {
-  client.ApplicationCommandManager.register([
+  const guild = client.guilds.get("779679929242746920");
+  guild?.register([
     {
-      name: "blep",
+      name: "blep1",
       type: 1,
       description: "Send a random adorable animal photo",
       options: [

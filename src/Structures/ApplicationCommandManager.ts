@@ -32,9 +32,8 @@ class ApplicationCommandManager {
             method: "POST",
           }
         );
-        console.log(res);
+
         const resp = (await res.json()) as any;
-        // console.log(resp);
         if (res.status !== 200) {
           throw new Error(resp.status + " " + resp.message);
         }

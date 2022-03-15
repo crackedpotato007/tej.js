@@ -5,7 +5,7 @@ import {
   APIUser,
   RESTPostAPIChannelMessageJSONBody,
 } from "discord-api-types";
-import { BaseChannel } from "./src/exports";
+import { BaseChannel, Guild } from "./src/exports";
 import TextChannel from "./src/Structures/GuildTextChannel";
 import { Client } from "../Structures/Client";
 import { WebSocket } from "ws";
@@ -30,7 +30,7 @@ export interface IGuild extends Omit<APIGuild, "channels"> {
   };
 }
 export interface IClient {
-  guilds: Map<string, IGuild>;
+  guilds: Map<string, Guild>;
   token: string;
   ws: WebSocket;
   ApplicationCommandManager: ApplicationCommandManager;

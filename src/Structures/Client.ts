@@ -10,6 +10,7 @@ import {
 } from "discord-api-types";
 import ApplicationCommandManager from "./ApplicationCommandManager";
 import { IGuild } from "../../typings";
+import Guild from "./Guild";
 interface gateway {
   url: string;
   shards: number;
@@ -43,7 +44,7 @@ interface gateway {
  */
 class Client extends EventEmitter implements IClient {
   token: string = "";
-  guilds: Map<string, IGuild> = new Map();
+  guilds: Map<string, Guild> = new Map();
   ws = {} as WebSocket;
   user: APIUser = {} as APIUser;
   ApplicationCommandManager: ApplicationCommandManager =
