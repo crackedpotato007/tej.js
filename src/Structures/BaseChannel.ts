@@ -1,6 +1,6 @@
 import Client from "./Client";
 import TextChannel from "./GuildTextChannel";
-import { ChannelType } from "discord-api-types";
+import { ChannelType } from "discord-api-types/v10";
 import GuildVoiceChannel from "./GuildVoiceChat";
 class BaseChannel {
   id: string = "";

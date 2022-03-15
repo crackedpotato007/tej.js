@@ -1,6 +1,6 @@
 import { fetch } from "undici";
 import Client from "../Structures/Client";
-import { APIGuild } from "discord-api-types";
+import { APIGuild } from "discord-api-types/v10";
 import { IGuild } from "../../typings";
 import Guild from "../Structures/Guild";
 const rawGuilds = new Map();

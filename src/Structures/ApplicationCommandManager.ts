@@ -1,6 +1,6 @@
 import { fetch } from "undici";
 import Client from "./Client";
-import { RESTPostAPIApplicationCommandsJSONBody } from "discord-api-types";
+import { RESTPostAPIApplicationCommandsJSONBody } from "discord-api-types/v10";
 interface ApplicationCommandManager {
   client: Client;
 }

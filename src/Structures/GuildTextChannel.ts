@@ -1,8 +1,10 @@
-import { APIGuildTextChannel } from "discord-api-types";
 import { fetch } from "undici";
 import BaseChannel from "./BaseChannel";
 import Client from "./Client";
-import { RESTPostAPIChannelMessageJSONBody, APIEmbed } from "discord-api-types";
+import {
+  APIGuildTextChannel,
+  RESTPostAPIChannelMessageJSONBody,
+} from "discord-api-types/v10";
 /**
  * The TextChanell is the class which represents a guild text channel
  * @extends BaseChannel

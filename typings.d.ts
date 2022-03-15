@@ -4,7 +4,7 @@ import {
   APIChannel,
   APIUser,
   RESTPostAPIChannelMessageJSONBody,
-} from "discord-api-types";
+} from "discord-api-types/v10";
 import { BaseChannel, Guild } from "./src/exports";
 import TextChannel from "./src/Structures/GuildTextChannel";
 import { Client } from "../Structures/Client";

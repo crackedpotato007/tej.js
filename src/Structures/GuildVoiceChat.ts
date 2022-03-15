@@ -1,4 +1,4 @@
-import { APIVoiceChannel } from "discord-api-types";
+import { APIVoiceChannel } from "discord-api-types/v10";
 import { WebSocket } from "ws";
 import BaseChannel from "./BaseChannel";
 import Client from "./Client";

@@ -7,9 +7,8 @@ import {
   GatewayReceivePayload,
   APIUnavailableGuild,
   APIUser,
-} from "discord-api-types";
+} from "discord-api-types/v10";
 import ApplicationCommandManager from "./ApplicationCommandManager";
-import { IGuild } from "../../typings";
 import Guild from "./Guild";
 interface gateway {
   url: string;
