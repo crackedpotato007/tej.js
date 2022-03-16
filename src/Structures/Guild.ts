@@ -3,7 +3,8 @@ import {
   APIGuild,
   APIGuildTextChannel,
   APIVoiceChannel,
-} from "discord-api-types";
+  RESTPostAPIApplicationCommandsJSONBody,
+} from "discord-api-types/v10";
 import { fetch } from "undici";
 import { GuildChannel } from "../../typings";
 import Client from "../Structures/Client";
@@ -73,6 +74,34 @@ class Guild {
      */
     this.channels.cache = chans;
     return this;
+  }
+  /**
+   * Register a array of slash command to a specific guild.
+   * @param commands The commands to register
+   * @example
+   * ```
+   * client.guilds.get("1234567890").register([{name: "test", type:1, description: ""}]);
+   */
+  async register(commands: RESTPostAPIApplicationCommandsJSONBody[]) {
+    Promise.all(
+      commands.map(async (command) => {
+        const res = await fetch(
+          `https://discord.com/api/v10/applications/${this.client.user.id}/guilds/${this.id}/commands`,
+          {
+            body: JSON.stringify(command),
+            headers: {
+              "User-Agent": "undici/tej.js",
+              Authorization: `Bot ${this.client.token}`,
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+          }
+        );
+        if (res.status !== 200) {
+          throw new Error(`${res.status}: ${res.statusText}`);
+        }
+      })
+    );
   }
 }
 
