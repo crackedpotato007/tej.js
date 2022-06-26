@@ -42,7 +42,7 @@ interface gateway {
  * ```
  */
 class Client extends EventEmitter implements IClient {
-  token: string = "";
+  token = "";
   guilds: Map<string, Guild> = new Map();
   ws = {} as WebSocket;
   user: APIUser = {} as APIUser;
