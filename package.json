@@ -2,7 +2,8 @@
   "name": "tej",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/exports",
+  "typings": "./typings.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,17 +11,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@transistorsoft/typedoc-theme": "^2.0.8",
     "@types/events": "^3.0.0",
     "@types/ws": "^8.5.3",
     "discord-api-types": "^0.29.0",
     "events": "^3.3.0",
     "json-bufferify": "^0.2.2",
-    "ts-transformer-keys": "^0.4.3",
     "undici": "^4.15.1",
     "ws": "^8.5.0"
   },
   "devDependencies": {
-    "dotenv": "^16.0.0"
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.13.0"
   }
 }

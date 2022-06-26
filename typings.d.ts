@@ -7,10 +7,11 @@ import {
 } from "discord-api-types/v10";
 import { BaseChannel, Guild } from "./src/exports";
 import TextChannel from "./src/Structures/GuildTextChannel";
-import { Client } from "../Structures/Client";
+import Client from "./src/Structures/Client";
 import { WebSocket } from "ws";
 import { ApplicationCommandManager } from "./src/exports";
 import GuildVoiceChannel from "./src/Structures/GuildVoiceChat";
+
 export interface IClientOptions {
   intents: GatewayIntentBits;
 }

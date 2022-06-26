@@ -8,6 +8,7 @@ const BaseChannel_1 = __importDefault(require("./BaseChannel"));
 class GuildTextChannel extends BaseChannel_1.default {
     constructor(data, client) {
         super(data.id, data.type, client);
+        this.type = 0;
         const keys = Object.keys(data);
         keys.forEach((key) => {
             //@ts-ignore

@@ -1,7 +1,7 @@
 import { fetch } from "undici";
 import BaseChannel from "./BaseChannel";
-import Client from "./Client";
-import {
+import type Client from "./Client";
+import type {
   APIGuildTextChannel,
   RESTPostAPIChannelMessageJSONBody,
 } from "discord-api-types/v10";
@@ -14,13 +14,13 @@ import {
  * ```
  *
  */
-
-interface TextChannel extends APIGuildTextChannel<0> {
+interface GuildTextChannel extends APIGuildTextChannel<0> {
   type: 0;
 }
 class GuildTextChannel extends BaseChannel {
   constructor(data: APIGuildTextChannel<0>, client: Client) {
     super(data.id, data.type, client);
+    this.type = 0;
     const keys = Object.keys(data);
     keys.forEach((key) => {
       //@ts-ignore
@@ -37,7 +37,7 @@ class GuildTextChannel extends BaseChannel {
    * @returns Promise<void>
    *
    */
-  async send(message: string) {
+  async send?(message: string): Promise<void> {
     const res = await fetch(
       `https://discord.com/api/v10/channels/${this.id}/messages`,
       {
@@ -60,7 +60,7 @@ class GuildTextChannel extends BaseChannel {
       return Promise.resolve();
     }
   }
-  async sendRaw(data: RESTPostAPIChannelMessageJSONBody) {
+  async sendRaw?(data: RESTPostAPIChannelMessageJSONBody): Promise<void> {
     const res = await fetch(
       `https://discord.com/api/v10/channels/${this.id}/messages`,
       {
@@ -77,6 +77,7 @@ class GuildTextChannel extends BaseChannel {
       if (resp.code) {
         throw new Error(resp.message);
       }
+
       return Promise.resolve();
     }
   }

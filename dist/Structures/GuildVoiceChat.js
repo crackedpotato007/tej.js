@@ -27,7 +27,6 @@ class GuildVoiceChannel extends BaseChannel_1.default {
         let session_id;
         let endpoint;
         let heartbeat_interval;
-        let interval_registered = false;
         let ws;
         const payload = {
             op: 4,
