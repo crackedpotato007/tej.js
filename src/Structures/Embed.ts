@@ -88,7 +88,7 @@ class Embed {
 		this.author.icon_url = icon
 		return this
 	}
-	addField(name: string, value: string, inline: boolean = false) {
+	addField(name: string, value: string, inline = false) {
 		this.fields.push({
 			name,
 			value,

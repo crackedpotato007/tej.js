@@ -4,7 +4,7 @@ import { ChannelType } from "discord-api-types/v10";
 import GuildVoiceChannel from "./GuildVoiceChat";
 
 class BaseChannel {
-  id: string = "";
+  id = "";
   type: ChannelType;
   client: Client;
   constructor(id: string, type: number, Client: Client) {
