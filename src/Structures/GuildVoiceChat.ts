@@ -1,7 +1,7 @@
-import { APIVoiceChannel } from "discord-api-types/v10";
+import type { APIVoiceChannel } from "discord-api-types/v10";
 import { WebSocket } from "ws";
 import BaseChannel from "./BaseChannel";
-import Client from "./Client";
+import type Client from "./Client";
 /**
  * The GuildVoiceChannel class is a class that contains information and methods for a guild voice channel.
  * @extends BaseChannel
@@ -36,7 +36,7 @@ class GuildVoiceChannel extends BaseChannel {
     let session_id: string;
     let endpoint: string;
     let heartbeat_interval: number;
-    let interval_registered = false;
+
     let ws: WebSocket;
     const payload = {
       op: 4,

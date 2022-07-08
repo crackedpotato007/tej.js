@@ -1,7 +1,8 @@
 import Client from "../src/Structures/Client";
 import "dotenv/config";
 const client = new Client();
-client.start(process.env.TOKEN!);
+if (!process.env.TOKEN) throw new Error("No token found");
+client.start(process.env.TOKEN);
 client.on("READY", () => {
   const guild = client.guilds.get("779679929242746920");
   guild?.register([

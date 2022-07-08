@@ -42,7 +42,7 @@ interface gateway {
  * ```
  */
 class Client extends EventEmitter implements IClient {
-  token: string = "";
+  token = "";
   guilds: Map<string, Guild> = new Map();
   ws = {} as WebSocket;
   user: APIUser = {} as APIUser;
@@ -53,13 +53,17 @@ class Client extends EventEmitter implements IClient {
   }
   async start(token: string) {
     this.token = token;
-    const myuser = await fetch(`https://discord.com/api/v10/users/@me`, {
+    console.log(this.token);
+    const myuser = await fetch("https://discord.com/api/v10/users/@me", {
       headers: {
-        Authorization: `Bot ${this.token}`,
+        authorization: `Bot ${this.token}`,
         "User-Agent": "undici/tej.js",
         encoding: "json",
       },
+    }).catch((err) => {
+      throw new Error(err);
     });
+    console.log(token);
     this.ApplicationCommandManager = new ApplicationCommandManager(this);
     if (myuser.status !== 200) {
       throw new Error(`${myuser.status} ${myuser.statusText}`);

@@ -19,6 +19,7 @@ const cacheChannels = async (guildids: string[], Client: Client) => {
       );
       if (data.status !== 200)
         throw new Error(`${data.status} ${data.statusText}`);
+      reject(new Error(`${data.status} ${data.statusText}`));
       const guildarr = Array.from(rawGuilds.values());
       await Promise.all(
         guildarr.map(async (guild) => {

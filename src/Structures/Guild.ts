@@ -101,7 +101,9 @@ class Guild {
           throw new Error(`${res.status}: ${res.statusText}`);
         }
       })
-    );
+    ).catch((err) => {
+      throw new Error(err);
+    });
   }
 }
 

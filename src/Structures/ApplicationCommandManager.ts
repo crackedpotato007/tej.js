@@ -38,7 +38,9 @@ class ApplicationCommandManager {
           throw new Error(resp.status + " " + resp.message);
         }
       })
-    );
+    ).catch((err) => {
+      throw new Error(err);
+    });
   }
 }
 export default ApplicationCommandManager;
