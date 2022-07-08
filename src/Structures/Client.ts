@@ -53,7 +53,6 @@ class Client extends EventEmitter implements IClient {
   }
   async start(token: string) {
     this.token = token;
-    console.log(this.token);
     const myuser = await fetch("https://discord.com/api/v10/users/@me", {
       headers: {
         authorization: `Bot ${this.token}`,
@@ -63,7 +62,7 @@ class Client extends EventEmitter implements IClient {
     }).catch((err) => {
       throw new Error(err);
     });
-    console.log(token);
+
     this.ApplicationCommandManager = new ApplicationCommandManager(this);
     if (myuser.status !== 200) {
       throw new Error(`${myuser.status} ${myuser.statusText}`);
