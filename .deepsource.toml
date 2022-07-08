@@ -8,7 +8,6 @@ name = "javascript"
 enabled = true
 environment = ["nodejs"]
 module_system = "es-modules"
-=======
 
 [[analyzers]]
 name = "shell"
