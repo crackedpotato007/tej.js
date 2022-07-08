@@ -1,3 +1,4 @@
+version = 1
 exclude_patterns = [
     "dist/**",
   "**/node_modules/",
@@ -9,7 +10,4 @@ enabled = true
 environment = ["nodejs"]
 module_system = "es-modules"
 
-[[analyzers]]
-name = "shell"
-enabled = true
 
